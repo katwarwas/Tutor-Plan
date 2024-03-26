@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 
-@router.get("/students",response_model=list[ShowStudents])
+@router.get("/",response_model=list[ShowStudents])
 async def show(request: Request, db: DbSession):
     return show_all_students(db_session=db,request=request)
 
