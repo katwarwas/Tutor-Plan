@@ -18,7 +18,7 @@ class CreateStudent(BaseStudent):
 
     class Config:
         arbitrary_types_allowed = True
-        orm_mode=True
+        form_atributer=True
 
 
 class ShowStudents(BaseStudent):
