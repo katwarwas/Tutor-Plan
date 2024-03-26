@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dodaj ucznia</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='/css/style.css') }}"
+    />
+  </head>
+  <body>
+    <a href="/students" id="backButton">Wróć</a>
+    <h1>Zaaktualizuj dane ucznia</h1>
+    <div class="studentFormDiv">
+      <form id="studentForm" method="POST">
+        <label for="name">Imię:</label><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{ student.name }}"
+          required
+        /><br />
+
+        <label for="level">Poziom:</label><br />
+        <select
+          id="level"
+          name="level"
+          required
+        >
+          <option value="szkoła podstawowa 5 klasa" {% if student.level.value == "szkoła podstawowa 5 klasa" %} selected {% endif %}>
+            Szkoła Podstawowa 5 klasa
+          </option>
+          <option value="szkoła podstawowa 6 klasa" {% if student.level.value == "szkoła podstawowa 6 klasa" %} selected {% endif %}>
+            Szkoła Podstawowa 6 klasa
+          </option>
+          <option value="szkoła podstawowa 7 klasa" {% if student.level.value == "szkoła podstawowa 7 klasa" %} selected {% endif %}>
+            Szkoła Podstawowa 7 klasa
+          </option>
+          <option value="szkoła podstawowa 8 klasa" {% if student.level.value == "szkoła podstawowa 8 klasa" %} selected {% endif %}>
+            Szkoła Podstawowa 8 klasa
+          </option>
+          <option value="liceum 1 klasa" {% if student.level.value == "liceum 1 klasa" %} selected {% endif %}>Liceum 1 klasa</option>
+          <option value="liceum 2 klasa" {% if student.level.value == "liceum 2 klasa" %} selected {% endif %}>Liceum 2 klasa</option>
+          <option value="liceum 3 klasa" {% if student.level.value == "liceum 3 klasa" %} selected {% endif %}>Liceum 3 klasa</option>
+          <option value="liceum 4 klasa" {% if student.level.value == "liceum 4 klasa" %} selected {% endif %}>Liceum 4 klasa</option>
+          <option value="technikum 1 klasa" {% if student.level.value == "technikum 1 klasa" %} selected {% endif %}>Technikum 1 klasa</option>
+          <option value="technikum 2 klasa" {% if student.level.value == "technikum 2 klasa" %} selected {% endif %}>Technikum 2 klasa</option>
+          <option value="technikum 3 klasa" {% if student.level.value == "technikum 3 klasa" %} selected {% endif %}>Technikum 3 klasa</option>
+          <option value="technikum 4 klasa" {% if student.level.value == "technikum 4 klasa" %} selected {% endif %}>Technikum 4 klasa</option>
+          <option value="technikum 5 klasa" {% if student.level.value == "technikum 5 klasa" %} selected {% endif %}>Technikum 5 klasa</option></select><br />
+
+        <label for="time">Godzina:</label><br />
+        <input
+          type="time"
+          id="time"
+          name="time"
+          value="{{ student.time.strftime('%H:%M') }}"
+          required
+        /><br />
+
+        <label for="day">Dzień:</label><br ? />
+        <select id="day" name="day" value="{{ student.day.value }}" required>
+          <option value="Poniedziałek" {% if student.day.value == "Poniedziałek" %} selected {% endif %}>Poniedziałek</option>
+          <option value="Wtorek" {% if student.day.value == "Wtorek" %} selected {% endif %}>Wtorek</option>
+          <option value="Środa" {% if student.day.value == "Środa" %} selected {% endif %}>Środa</option>
+          <option value="Czwartek" {% if student.day.value == "Czwartek" %} selected {% endif %}>Czwartek</option>
+          <option value="Piątek" {% if student.day.value == "Piątek" %} selected {% endif %}>Piątek</option></select
+        ><br />
+
+        <label for="price">Cena:</label><br />
+        <input
+          typw="number"
+          id="price"
+          name="price"
+          value="{{ student.price }}"
+          required
+        /><br />
+
+        <button id="createButton" class="button" type="submit"  hx-get="/students" >
+          Zaaktualizuj
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

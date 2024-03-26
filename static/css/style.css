@@ -1,0 +1,212 @@
+.table,
+.day-column {
+  text-align: left;
+  color: rgb(188, 188, 188);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#studentForm {
+  text-align: left;
+  color: rgb(188, 188, 188);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.studentFormDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input,
+select {
+  color: #000000;
+  background-color: #d6d6d6;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  padding: 5px 5px;
+  border: 0px solid #000;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+li {
+  text-align: left;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 10px;
+}
+
+.price {
+  text-transform: lowercase;
+}
+
+ul {
+  list-style: none;
+  text-align: left;
+  color: rgb(188, 188, 188);
+  padding: 0;
+  text-transform: capitalize;
+
+  &[data-level]:has(li) {
+    background-color: var(--color);
+    background: var(--background);
+    border-radius: 16px;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+  }
+
+  &[data-level*="liceum"] {
+    --color: #196bca;
+    --background: linear-gradient(to right, #82a2c6, #a18ada);
+  }
+  &[data-level*="technikum"] {
+    --color: #ffc0cb;
+    --background: linear-gradient(to right, #ffc0cb, #d38166);
+  }
+  &[data-level*="podstawowa"] {
+    --color: #b3dc94;
+    --background: linear-gradient(to right, #c0dc94, #d4d46f);
+  }
+}
+
+body {
+  background-color: #181c21;
+}
+
+.days-wrapper {
+  display: flex;
+}
+
+.day-column {
+  flex-basis: calc(100% / 5);
+  margin: 0px 10px;
+}
+
+.day-column p {
+  text-align: center;
+  font-size: 24px;
+}
+
+.student-row {
+  margin-top: 20px;
+}
+
+ul.htmx-swapping {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+h1 {
+  color: rgb(188, 188, 188);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  font-size: 48px;
+  background-image: linear-gradient(45deg, #f3ec78, #af4261);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+#createButton {
+  background: linear-gradient(to right, #e9e692, #d9a781);
+  background-color: #e9e692;
+  color: #000000;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  font-style: normal;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 0px solid #000;
+  border-radius: 8px;
+  display: inline-block;
+}
+#createButton:hover {
+  background: linear-gradient(to right, #e0deae, #e0bea4);
+  background-color: #e0deae;
+}
+#createButton:active {
+  transform: scale(0.95);
+}
+
+#backButton {
+  background: linear-gradient(to right, #e9e692, #d9a781);
+  background-color: #e9e692;
+  color: #000000;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  font-style: normal;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 0px solid #000;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+#backButton {
+  background: linear-gradient(to right, #e0deae, #e0bea4);
+  background-color: #e0deae;
+}
+
+#backButton:active {
+  transform: scale(0.95);
+}
+
+.sum {
+  color: rgb(188, 188, 188);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  background-image: linear-gradient(45deg, #f3ec78, #af4261);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.sum p {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.delete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & div {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.delete a {
+  background-color: transparent;
+  color: transparent;
+  border-radius: 12px;
+  border: transparent;
+}
+
+.delete a svg:hover {
+  fill: rgb(89, 89, 89);
+}
+
+.delete a svg:active {
+  transform: scale(0.8);
+}

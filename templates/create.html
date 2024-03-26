@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dodaj ucznia</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='/css/style.css') }}"
+    />
+  </head>
+  <body>
+    <a href="/students" id="backButton">Wróć</a>
+    <h1>Dodaj ucznia</h1>
+    <div class="studentFormDiv">
+      <form id="studentForm" method="POST" action="/student/create">
+        <label for="name">Imię:</label><br />
+        <input type="text" id="name" name="name" required /><br />
+
+        <label for="level">Poziom:</label><br />
+        <select id="level" name="level" required>
+          <option value="szkoła podstawowa 5 klasa">
+            Szkoła Podstawowa 5 klasa
+          </option>
+          <option value="szkoła podstawowa 6 klasa">
+            Szkoła Podstawowa 6 klasa
+          </option>
+          <option value="szkoła podstawowa 7 klasa">
+            Szkoła Podstawowa 7 klasa
+          </option>
+          <option value="szkoła podstawowa 8 klasa">
+            Szkoła Podstawowa 8 klasa
+          </option>
+          <option value="liceum 1 klasa">Liceum 1 klasa</option>
+          <option value="liceum 2 klasa">Liceum 2 klasa</option>
+          <option value="liceum 3 klasa">Liceum 3 klasa</option>
+          <option value="liceum 4 klasa">Liceum 4 klasa</option>
+          <option value="technikum 1 klasa">Technikum 1 klasa</option>
+          <option value="technikum 2 klasa">Technikum 2 klasa</option>
+          <option value="technikum 3 klasa">Technikum 3 klasa</option>
+          <option value="technikum 4 klasa">Technikum 4 klasa</option>
+          <option value="technikum 5 klasa">Technikum 5 klasa</option></select
+        ><br />
+
+        <label for="time">Godzina:</label><br />
+        <input type="time" id="time" name="time" required /><br />
+
+        <label for="day">Dzień:</label><br ? />
+        <select id="day" name="day" required>
+          <option value="Poniedziałek">Poniedziałek</option>
+          <option value="Wtorek">Wtorek</option>
+          <option value="Środa">Środa</option>
+          <option value="Czwartek">Czwartek</option>
+          <option value="Piątek">Piątek</option></select
+        ><br />
+
+        <label for="price">Cena:</label><br />
+        <input typw="number" id="price" name="price" required /><br />
+
+        <button id="createButton" class="button" type="submit">
+          Dodaj ucznia
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

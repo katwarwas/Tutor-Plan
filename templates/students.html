@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+    </style>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.11"
+      integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>Lista Uczniów</h1>
+
+    <div class="days-wrapper">
+      {% for day in days %}
+      <div class="day-column">
+        <p>{{ day }}</p>
+        {% for student in students %}
+        <ul
+          class="student-row"
+          data-level="{{student.level.value}}"
+          hx-target="this"
+          hx-swap="outerHTML swap:1s"
+        >
+          {% if student.day.value == day %}
+          <div class="delete">
+            <li>
+              <span class="time-cell">{{ student.time }}</span> -
+              <span class="time-cell-2">{{ student.time }}</span>
+            </li>
+            <div>
+              <a href="/student/update/{{ student.id }}" class="update-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="curentColor"
+                  class="update-svg"
+                  viewBox="0 0 16 16"
+                >
+                  ś
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                  />
+                </svg>
+              </a>
+              <a class="delete-button" hx-delete="/delete/{{ student.id }}">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="curentColor"
+                  class="delete-svg"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <li>{{ student.name }}</li>
+          <li>{{ student.level.value }}</li>
+          <li class="price">{{ student.price }} ZŁ</li>
+          {% endif %}
+        </ul>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="sum">
+      <p id="sum">Suma: {{ total }} zł</p>
+    </div>
+    <a href="/student/create" id="createButton" class="button">Dodaj ucznia</a>
+
+    <script defer>
+      function formatTime(timeStr) {
+        return timeStr.substring(0, 5)
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let timeCells = document.querySelectorAll(".time-cell")
+        timeCells.forEach(function (cell) {
+          cell.textContent = formatTime(cell.textContent)
+        })
+      })
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let timeCells = document.querySelectorAll(".time-cell-2")
+        timeCells.forEach(function (cell) {
+          let [hours, minutes] = cell.textContent.split(":")
+          hours = parseInt(hours, 10)
+          minutes = parseInt(minutes, 10)
+
+          hours = (hours + 1) % 24
+
+          let formattedTime =
+            ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2)
+          cell.textContent = formattedTime
+        })
+      })
+    </script>
+  </body>
+</html>
