@@ -134,6 +134,7 @@ h1 {
   border: 0px solid #000;
   border-radius: 8px;
   display: inline-block;
+  margin-left: 10px;
 }
 #createButton:hover {
   background: linear-gradient(to right, #e0deae, #e0bea4);
@@ -184,6 +185,7 @@ h1 {
 .sum p {
   margin-top: 0px;
   margin-bottom: 20px;
+  margin-left: 10px;
 }
 
 .delete {
