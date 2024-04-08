@@ -70,7 +70,7 @@ async def update_student(db: DbSession, request: Request, student_id: int, name:
     db.commit()
     db.refresh(student)
 
-    return RedirectResponse(url="/students", status_code=status.HTTP_302_FOUND)
+    return RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)
 
 
 @router.patch("/update/{id}", response_model=UpdateStudent)

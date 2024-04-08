@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zarejestruj</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='/css/style.css') }}"
+    />
+  </head>
+  <script
+    defer
+    src="https://unpkg.com/htmx.org@1.9.11"
+    integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+    crossorigin="anonymous"
+  ></script>
+  <body>
+    <h1>Zarejestruj się</h1>
+    <div class="teacherFormDiv">
+      <form
+        id="teacherForm"
+        hx-post="/register"
+        hx-target="#info"
+        hx-swap="outerHTML"
+      >
+        <label for="name">Imię:</label><br />
+        <input type="text" id="name" name="name" required /><br />
+
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="email" required /><br />
+
+        <label for="password">Hasło:</label><br />
+        <input type="password" id="password" name="password" required /><br />
+
+        <label for="cormirm_password">Hasło:</label><br />
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          required
+        /><br />
+        <button id="addButton" >Zarejestruj</button>
+      </form>
+    </div></br>
+    <div id="info"></div>
+  </body>
+</html>

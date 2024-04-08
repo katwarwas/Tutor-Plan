@@ -1,11 +1,8 @@
-from sqlalchemy import Column, Integer, String, Time
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, Time, ForeignKey
+from sqlalchemy.orm import relationship
+from database import Base
 from sqlalchemy_utils import ChoiceType
 from enum import Enum 
-
-
-
-Base = declarative_base()
 
 class DayEnum(Enum):
     monday = "Poniedziałek"
@@ -28,6 +25,13 @@ class Level(Enum):
     t3 = "technikum 3 klasa"
     t4 = "technikum 4 klasa"
     t5 = "technikum 5 klasa"
+    
+
+class ClassTime(Enum):
+    t1 = "30 min"
+    t2 = "45 min"
+    t3 = "1 h"
+    t5 = "1h 30 min"
 
 class Students(Base):
     __tablename__ = "students"
@@ -36,7 +40,10 @@ class Students(Base):
     name = Column(String, nullable=False)
     level = Column(ChoiceType(Level), nullable=False)
     time = Column(Time(timezone=True), nullable=False)
+    time2 = Column(ChoiceType(ClassTime), nullable=False, default = "1 h")
     day = Column(ChoiceType(DayEnum), nullable=False)
     price = Column(Integer, nullable=False)
+    teacher_id = Column(Integer, ForeignKey("teachers.id"), nullable=False, default=1)
 
+    teacher = relationship("Teachers", foreign_keys=[teacher_id])
 

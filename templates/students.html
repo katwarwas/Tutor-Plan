@@ -27,16 +27,15 @@
         <p>{{ day }}</p>
         {% for student in students %}
         <ul
+          id="student-{{ student.id }}"
           class="student-row"
           data-level="{{student.level.value}}"
-          hx-target="this"
-          hx-swap="outerHTML swap:1s"
         >
           {% if student.day.value == day %}
           <div class="delete">
             <li>
-              <span class="time-cell">{{ student.time }}</span> -
-              <span class="time-cell-2">{{ student.time }}</span>
+              <span class="time-cell">{{ student.time }}</span
+              ><span class="classTime"> - {{ student.time2.value }}</span>
             </li>
             <div>
               <a href="/student/update/{{ student.id }}" class="update-button">
@@ -58,7 +57,12 @@
                   />
                 </svg>
               </a>
-              <a class="delete-button" hx-delete="/delete/{{ student.id }}">
+              <a
+                class="delete-button"
+                hx-delete="/delete/{{ student.id }}"
+                hx-target="#student-{{student.id}}"
+                hx-swap="outerHTML swap:1s"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
