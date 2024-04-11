@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from database import engine
 from auth import models as auth_models
 from auth.views import admin as auth_router
+from basic.views import main as main_router
 from  students import models as students_models
 from students.views import router as students_router
 
@@ -25,6 +26,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
+app.include_router(main_router)
 app.include_router(students_router)
 
 

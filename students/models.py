@@ -43,7 +43,7 @@ class Students(Base):
     time2 = Column(ChoiceType(ClassTime), nullable=False, default = "1 h")
     day = Column(ChoiceType(DayEnum), nullable=False)
     price = Column(Integer, nullable=False)
-    teacher_id = Column(Integer, ForeignKey("teachers.id"), nullable=False, default=1)
+    teacher_id = Column(Integer, ForeignKey("teachers.id"), nullable=False)
 
     teacher = relationship("Teachers", foreign_keys=[teacher_id])
 

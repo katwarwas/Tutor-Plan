@@ -7,8 +7,10 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from starlette import status
 from .models import Students
-from .exceptions import student_exception
+from .exceptions import student_exception, teacher_authorized_exceptions
 from starlette.responses import RedirectResponse
+from auth.services import get_current_user
+from auth.schemas import Teacher
 
 
 router = APIRouter(
@@ -17,14 +19,14 @@ router = APIRouter(
 
 templates = Jinja2Templates(directory="templates")
 
+CurrentUser = Annotated[Teacher, Depends(get_current_user)]
+
+@router.get("/plan",response_model=list[ShowStudents], dependencies=[Depends(get_current_user)])
+async def show(request: Request, db: DbSession, current_user: CurrentUser):
+    return show_all_students(db_session=db,request=request, id=current_user.id)
 
 
-@router.get("/",response_model=list[ShowStudents])
-async def show(request: Request, db: DbSession):
-    return show_all_students(db_session=db,request=request)
-
-
-@router.get("/student/create", response_class=HTMLResponse)
+@router.get("/student/create", response_class=HTMLResponse, dependencies=[Depends(get_current_user)])
 async def create(request: Request):
     return templates.TemplateResponse("create.html", {"request": request})
 
@@ -35,11 +37,12 @@ async def sum(request: Request, db: DbSession):
 
 
 
-@router.post("/student/create")
-async def create_student(db: DbSession, request: Request, name: str = Form(...), level: str = Form(...), time: str = Form(...), day: str = Form(...), price: int = Form(...)):
+@router.post("/student/create", dependencies=[Depends(get_current_user)])
+async def create_student(db: DbSession, current_user: CurrentUser, request: Request, name: str = Form(...), level: str = Form(...), time: str = Form(...), day: str = Form(...), price: int = Form(...)):
     student = Students()
     student.name = name
     student.level = level 
+    student.teacher_id = current_user.id
     student.time = time
     student.day = day
     student.price = price
@@ -52,18 +55,19 @@ async def create_student(db: DbSession, request: Request, name: str = Form(...),
 
 
 
-@router.get("/student/update/{student_id}", response_class=HTMLResponse)
+@router.get("/student/update/{student_id}", response_class=HTMLResponse,  dependencies=[Depends(get_current_user)])
 async def update_S(request: Request, student_id: int, db: DbSession):
     student = get_student_by_id(student_id, db)
     return templates.TemplateResponse("update.html", {"request": request, "student": student})
 
 
-@router.post("/student/update/{student_id}")
-async def update_student(db: DbSession, request: Request, student_id: int, name: str = Form(...), level: str = Form(...), time: str = Form(...), day: str = Form(...), price: int = Form(...)):
+@router.post("/student/update/{student_id}",  dependencies=[Depends(get_current_user)])
+async def update_student(db: DbSession, current_user: CurrentUser, request: Request, student_id: int, name: str = Form(...), level: str = Form(...), time: str = Form(...), day: str = Form(...), price: int = Form(...)):
     student = get_student_by_id(student_id, db)
     
     student.name = name
     student.level = level 
+    student.teacher_id = current_user.id
     student.time = time
     student.day = day
     student.price = price
@@ -78,10 +82,12 @@ async def update_student(id:int, db: DbSession, student_in: UpdateStudent):
     return update(db_session=db, id=id, student_in=student_in)
 
 
-@router.delete("/delete/{id}")
-async def delete_student(request: Request, id: int, db: DbSession):
-    total_price = delete(id=id, db_session=db)
-    print(total_price)
+@router.delete("/delete/{id}", dependencies=[Depends(get_current_user)])
+async def delete_student(request: Request, current_user: CurrentUser, id: int, db: DbSession):
+    student = get_student_by_id(id, db)
+    if student.teacher_id != current_user.id:
+        raise teacher_authorized_exceptions()
+    delete(id=id, db_session=db)
     return Response(status_code=200)
 
     
