@@ -6,7 +6,7 @@ from fastapi import Depends
 from typing import Annotated
 
 # SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}/{settings.database_name}"
-SQLALCHEMY_DATABASE_URL=f"postgresql://fastapi_database_owner:bhSd7GBerIO5@ep-twilight-leaf-a5jzjuwc.us-east-2.aws.neon.tech/fastapi_database?sslmode=require"
+SQLALCHEMY_DATABASE_URL=f"postgresql://fastapi_database_owner:************@ep-twilight-leaf-a5jzjuwc.us-east-2.aws.neon.tech/fastapi_database_1?sslmode=require"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
